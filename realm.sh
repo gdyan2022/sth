@@ -9,7 +9,7 @@ cat > /etc/realm/config.toml <<EOF
 [[endpoints]]
 
 EOF
-cat /etc/systemd/system/realm.service <<EOF
+cat > /etc/systemd/system/realm.service <<EOF
 [Unit]
 Description=realm
 After=network-online.target
