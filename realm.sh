@@ -7,6 +7,8 @@ chmod +x /usr/local/bin/realm
 mkdir -p /etc/realm/
 cat > /etc/realm/config.toml <<EOF
 [[endpoints]]
+# listen = "0.0.0.0:58081"
+# remote = "8.8.8.8:443"
 
 EOF
 cat > /etc/systemd/system/realm.service <<EOF
