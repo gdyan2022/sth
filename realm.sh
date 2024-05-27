@@ -1,7 +1,7 @@
 #!/bin/bash
 
 wget -O /tmp/realm.tar.gz https://github.com/zhboner/realm/releases/download/v2.6.0/realm-x86_64-unknown-linux-gnu.tar.gz
-tar -xvf /tmp/realm.tar.gz -C /usr/local/bin/
+tar -xf /tmp/realm.tar.gz -C /usr/local/bin/
 rm /tmp/realm.tar.gz
 chmod +x /usr/local/bin/realm
 mkdir -p /etc/realm/
