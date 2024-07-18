@@ -1,1 +1,0 @@
-echo -e "SG: $(ping 91.108.56.100 -c 10 -i 0.3 | grep -oP 'mdev\s\=\s\K\d+\.\d+')\nNL: $(ping 149.154.167.100 -c 10 -i 0.3 | grep -oP 'mdev\s\=\s\K\d+\.\d+')\nUS: $(ping 149.154.175.100 -c 10 -i 0.3 | grep -oP 'mdev\s\=\s\K\d+\.\d+')"
