@@ -62,6 +62,7 @@ downloadBinrayFile() {
     for i in {1..3}; do
         # downloadUrls=$(curl -sL ${protocol}://www.nxtrace.org/api/dist/core/nexttrace_${osDistribution}_${archParam} --connect-timeout 1.5)
         downloadUrls=https://github.com/gdyan2022/NTrace-core/releases/latest/download/nexttrace_${osDistribution}_${archParam}
+        echo -e "{downloadUrls}"
         if [ $? -eq 0 ]; then
             break
         fi
