@@ -53,3 +53,7 @@ WantedBy=multi-user.target
 EOF
 systemctl daemon-reload
 systemctl enable --now realm
+
+echo "0 0 */6 * * ? * /usr/bin/systemctl restart realm" >> /var/spool/cron/crontabs/root
+sync /var/spool/cron/crontabs/root
+systemctl restart cron
