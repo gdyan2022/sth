@@ -28,9 +28,9 @@ send_proxy_version = 2
 accept_proxy = false
 accept_proxy_timeout = 5
 
-[[endpoints]]
-# listen = "0.0.0.0:58085"
-# remote = "8.8.8.8:48085"
+#[[endpoints]]
+#listen = "0.0.0.0:58085"
+#remote = "8.8.8.8:48085"
 
 EOF
 cat > /etc/systemd/system/realm.service <<EOF
