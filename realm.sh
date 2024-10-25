@@ -19,8 +19,6 @@ cache_size = 5
 [network]
 no_tcp = false
 use_udp = true
-zero_copy = true
-fast_open = true
 tcp_timeout = 300
 udp_timeout = 30
 send_proxy = false
