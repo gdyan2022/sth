@@ -75,18 +75,15 @@ if [ "$OS" = "Debian" ]; then
 
     echo "配置 Fail2Ban..."
     cat > /etc/fail2ban/jail.local << EOF
-[DEFAULT]
-ignoreip = 127.0.0.1/8
-bantime  = 1d
-findtime  = 5m
-maxretry = 3
-backend = auto
-
 [sshd]
 enabled = true
 port    = $SSH_PORT
 filter  = sshd
-logpath = /var/log/auth.log
+backend   = systemd
+bantime  = 1d
+findtime  = 5m
+maxretry = 3
+ignoreip = 127.0.0.1/8 172.31.0.0/24 10.10.0.0/24 192.168.0.0/24
 EOF
 
     echo "重新启动 Fail2Ban 服务以应用配置..."
