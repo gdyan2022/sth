@@ -4,6 +4,8 @@ wget -O /tmp/realm.tar.gz https://github.com/zhboner/realm/releases/latest/downl
 tar -xf /tmp/realm.tar.gz -C /usr/local/bin/
 rm /tmp/realm.tar.gz
 chmod +x /usr/local/bin/realm
+
+reset_config() {
 mkdir -p /etc/realm/
 cat > /etc/realm/config.toml <<EOF
 [log]
@@ -31,6 +33,22 @@ accept_proxy_timeout = 5
 #remote = "8.8.8.8:48085"
 
 EOF
+}
+
+if [ -f /etc/realm/config.toml ]; then
+	read -e -p "config.toml 文件已存在，是否覆盖？(y/N)" yn
+	[[ -z "${yn}" ]] && yn="n"
+	if [[ $yn == [Yy] ]]; then
+		reset_config
+	fi
+else
+	reset_config
+	echo "0 0 */6 * * ? * /usr/bin/systemctl restart realm" >> /var/spool/cron/crontabs/root
+	sync /var/spool/cron/crontabs/root
+	systemctl restart cron
+fi
+
+if [[ ! -f /etc/systemd/system/realm.service ]];
 cat > /etc/systemd/system/realm.service <<EOF
 [Unit]
 Description=realm
@@ -50,8 +68,11 @@ ExecStart=/usr/local/bin/realm -c /etc/realm/config.toml
 WantedBy=multi-user.target
 EOF
 systemctl daemon-reload
-systemctl enable --now realm
+systemctl enable realm
+fi
 
-echo "0 0 */6 * * ? * /usr/bin/systemctl restart realm" >> /var/spool/cron/crontabs/root
-sync /var/spool/cron/crontabs/root
-systemctl restart cron
+systemctl restart realm
+
+# echo "0 0 */6 * * ? * /usr/bin/systemctl restart realm" >> /var/spool/cron/crontabs/root
+# sync /var/spool/cron/crontabs/root
+# systemctl restart cron
