@@ -48,7 +48,7 @@ else
 	systemctl restart cron
 fi
 
-if [[ ! -f /etc/systemd/system/realm.service ]];
+if [[ ! -f /etc/systemd/system/realm.service ]]; then
 cat > /etc/systemd/system/realm.service <<EOF
 [Unit]
 Description=realm
