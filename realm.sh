@@ -43,9 +43,10 @@ if [ -f /etc/realm/config.toml ]; then
 	fi
 else
 	reset_config
-	echo "0 0 */6 * * ? * /usr/bin/systemctl restart realm" >> /var/spool/cron/crontabs/root
-	sync /var/spool/cron/crontabs/root
-	systemctl restart cron
+	#echo "0 0 */6 * * ? * /usr/bin/systemctl restart realm" >> /var/spool/cron/crontabs/root
+	#sync /var/spool/cron/crontabs/root
+ 	(crontab -l 2>/dev/null | grep -v "realm"; echo "0 0 */6 * * /usr/bin/systemctl restart realm") | crontab -
+	#systemctl restart cron
 fi
 
 if [[ ! -f /etc/systemd/system/realm.service ]]; then
