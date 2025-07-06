@@ -1,6 +1,6 @@
 #!/bin/bash
 
-wget -O /tmp/snell-server.zip https://dl.nssurge.com/snell/snell-server-v5.0.0b1-linux-amd64.zip
+wget -O /tmp/snell-server.zip https://dl.nssurge.com/snell/snell-server-v5.0.0b2-linux-amd64.zip
 cd /tmp/
 unzip snell-server.zip
 chmod +x snell-server
