@@ -24,7 +24,7 @@ echo "检测到系统架构: $arch"
 
 # 1. 下载版本文件并提取第一行到 ver 变量
 echo "正在下载最新版本信息..."
-wget -O /tmp/ver.txt https://raw.githubusercontent.com/gdyan2022/sth/refs/heads/main/ver.txt
+wget -O /tmp/ver.txt https://raw.githubusercontent.com/gdyan2022/sth/main/ver.txt
 ver=$(head -n 1 /tmp/ver.txt)
 echo "最新版本: $ver"
 
