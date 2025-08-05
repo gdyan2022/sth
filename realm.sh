@@ -5,6 +5,13 @@ tar -xf /tmp/realm.tar.gz -C /usr/local/bin/
 rm /tmp/realm.tar.gz
 chmod +x /usr/local/bin/realm
 
+# Get version and save to /etc/realm/ver.txt
+mkdir -p /etc/realm/
+curl -s https://api.github.com/repos/zhboner/realm/releases/latest \
+  | grep '"tag_name"' \
+  | head -n1 \
+  | sed -E 's/.*"tag_name":[[:space:]]*"([^"]+)".*/\1/' > /etc/realm/ver.txt
+
 reset_config() {
 mkdir -p /etc/realm/
 cat > /etc/realm/config.toml <<EOF
