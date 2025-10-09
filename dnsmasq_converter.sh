@@ -120,6 +120,30 @@ while IFS= read -r line; do
     
 done < "$INPUT_FILE"
 
+# 创建目录
+mkdir -p /etc/dnsmasq.d
+
+# 复制规则文件
+cp ./$OUTPUT_FILE /etc/dnsmasq.d/
+
+# 备份原配置
+cp /etc/dnsmasq.conf /etc/dnsmasq.conf.bak
+
+# 写入新配置
+cat > /etc/dnsmasq.conf << 'EOF'
+cache-size=1000   # 缓存最多 1000 条记录
+# 设置上游 DNS 服务器
+server=1.1.1.1
+server=1.0.0.1
+expand-hosts
+# 本地监听地址(可选)
+listen-address=127.0.0.1
+# 不读取 /etc/resolv.conf
+no-resolv
+strict-order
+EOF
+
+
 echo ""
 echo "转换完成！"
 echo "输入文件: $INPUT_FILE (从GitHub下载)"
@@ -130,11 +154,6 @@ echo "生成的dnsmasq配置文件内容预览："
 echo "----------------------------------------"
 head -20 "$OUTPUT_FILE"
 echo "----------------------------------------"
-echo ""
-echo "使用方法："
-echo "1. 将生成的 $OUTPUT_FILE 复制到 /etc/dnsmasq.d/ 目录"
-echo "   sudo cp $OUTPUT_FILE /etc/dnsmasq.d/"
-echo "2. 重启dnsmasq服务：sudo systemctl restart dnsmasq"
 echo ""
 echo "脚本用法："
 echo "  $0                    # 使用默认DNS服务器 $DEFAULT_DNS"
