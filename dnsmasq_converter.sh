@@ -143,6 +143,7 @@ no-resolv
 strict-order
 EOF
 
+sed -i '/^nameserver 127.0.0.1$/d' /etc/resolv.conf
 sed -i '0,/^[^#]/{/^[^#]/i\nameserver 127.0.0.1
 }' /etc/resolv.conf
 systemctl restart dnsmasq
