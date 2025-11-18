@@ -43,7 +43,7 @@ source ~/.bashrc
 
 # 申请证书
 echo -e "${GREEN}[3/3] 申请 SSL 证书...${NC}"
-/root/.acme.sh/acme.sh --issue --standalone -d "$DOMAIN"
+/root/.acme.sh/acme.sh --issue --standalone -d "$DOMAIN" --force
 
 # 检查证书是否申请成功
 if [ ! -d "/root/.acme.sh/${DOMAIN}_ecc" ]; then
