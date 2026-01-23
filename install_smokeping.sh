@@ -33,8 +33,11 @@ fi
 
 # 4. 创建 Smokeping 目录
 echo "创建 Smokeping 目录..."
-mkdir -p /root/docker/smokeping/config
-mkdir -p /root/docker/smokeping/data
+CONFIG_DIR="/root/docker/smokeping/config"
+DATA_DIR="/root/docker/smokeping/data"
+
+mkdir -p "$CONFIG_DIR"
+mkdir -p "$DATA_DIR"
 
 # 5. 如果容器已存在则删除
 if docker ps -a --format '{{.Names}}' | grep -q "^smokeping$"; then
@@ -48,22 +51,25 @@ docker run -d \
 --name=smokeping \
 -e TZ=Asia/Shanghai \
 -p ${PORT}:80 \
--v /root/docker/smokeping/config:/config \
--v /root/docker/smokeping/data:/data \
+-v ${CONFIG_DIR}:/config \
+-v ${DATA_DIR}:/data \
 --restart unless-stopped \
 linuxserver/smokeping
 
-# 7. 下载 Smokeping 配置
-echo "下载 Smokeping 配置..."
-cd /tmp
-wget -O smokeping-config.tar.gz https://raw.githubusercontent.com/gdyan2022/sth/main/smokeping-config.tar.gz
+# 7. 下载 Smokeping 配置文件
+echo "下载 Smokeping 配置文件..."
 
-# 8. 解压配置
-echo "解压 Smokeping 配置..."
-tar xzvf smokeping-config.tar.gz -C /root/docker/smokeping/config/
+BASE_URL="https://raw.githubusercontent.com/gdyan2022/sth/main/smokeping"
 
-# 9. 修改 display_name
-GENERAL_FILE="/root/docker/smokeping/config/General"
+wget -O "${CONFIG_DIR}/General"      "${BASE_URL}/General"
+wget -O "${CONFIG_DIR}/Presentation" "${BASE_URL}/Presentation"
+wget -O "${CONFIG_DIR}/Probes"       "${BASE_URL}/Probes"
+wget -O "${CONFIG_DIR}/Targets"      "${BASE_URL}/Targets"
+
+echo "配置文件下载完成"
+
+# 8. 修改 display_name
+GENERAL_FILE="${CONFIG_DIR}/General"
 
 if [ -f "$GENERAL_FILE" ]; then
     echo "修改 display_name 为: $DISPLAY_NAME"
@@ -72,7 +78,7 @@ else
     echo "警告: 未找到 $GENERAL_FILE，跳过 display_name 修改"
 fi
 
-# 10. 重启容器加载配置
+# 9. 重启容器加载配置
 echo "重启 Smokeping 容器..."
 docker restart smokeping
 
