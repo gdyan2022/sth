@@ -23,7 +23,7 @@ host = 8.8.8.8
 
 ++ googletcp
 probe = TCPPing
-menu = Google
-title = Google TCP
+menu = Google TCPPing
+title = Google TCPPing
 host = www.google.com
 port = 80
