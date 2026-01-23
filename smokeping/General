@@ -13,5 +13,5 @@ syslogfacility = local0
 # disable this to revert to the old behaviour
 # concurrentprobes = no
 
-display_name = DMIT T1
+display_name = VPS
 @include /config/pathnames
