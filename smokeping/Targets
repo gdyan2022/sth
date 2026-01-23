@@ -11,12 +11,19 @@ remark = Welcome to the SmokePing website of WORKS Company. \
 menu = Internet Site
 title = Internet Site
 
-++ cf
+++ cfping
 menu = Cloudflare
 title = Cloudflare 1.1.1.1
 host = 1.1.1.1
 
-++ google
+++ googleping
 menu = Google
 title = Google 8.8.8.8
 host = 8.8.8.8
+
+++ googletcp
+probe = TCPPing
+menu = Google
+title = Google TCP
+host = www.google.com
+port = 80
