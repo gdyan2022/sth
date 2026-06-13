@@ -22,6 +22,16 @@ sysArch
 
 echo "检测到系统架构: $arch"
 
+# 锁定文件：若该文件存在则跳过更新（用于固定版本 / 手动维护的机器）
+# 想改名就改这里，例如 /etc/snell/no_update、/etc/snell/lock 等
+LOCK_FILE="/etc/snell/.noupdate"
+ 
+# 0. 检查锁定文件，存在则不进行更新，直接退出
+if [[ -f "$LOCK_FILE" ]]; then
+    echo "检测到锁定文件 $LOCK_FILE，跳过本次更新"
+    exit 0
+fi
+
 # 1. 下载版本文件并提取第一行到 ver 变量
 echo "正在下载最新版本信息..."
 wget -O /tmp/ver.txt https://raw.githubusercontent.com/gdyan2022/sth/main/ver.txt
