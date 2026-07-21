@@ -70,7 +70,7 @@ rm /tmp/snell-server.zip
 
 # 停止服务
 echo "正在停止 Snell 服务..."
-systemctl stop snell-server
+systemctl stop snell-server 2>/dev/null || true
 
 # 移动新版本到目标位置
 echo "正在安装新版本..."
@@ -82,7 +82,7 @@ systemctl start snell-server
 
 # 显示服务状态
 echo "服务状态:"
-systemctl status snell-server
+systemctl is-active snell-server
 
 # 更新版本记录
 echo "正在更新版本记录..."
