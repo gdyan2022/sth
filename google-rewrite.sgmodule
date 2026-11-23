@@ -5,5 +5,4 @@
 http-response ^https://one\.google\.com/ai\?.*$ 30tb\.ai\.pro\.m 30tb.m 20tb\.m\.v2 20tb.m
 
 [MITM]
-enable = true
 hostname = %APPEND% one.google.com
