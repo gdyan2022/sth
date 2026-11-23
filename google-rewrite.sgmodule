@@ -2,8 +2,8 @@
 #!desc=重写 one.google.com/ai 响应正文，对应原 Shadowrocket MITM 与正文重写配置
 
 [Body Rewrite]
-http-response ^https://one\.google\.com/ai\?.*$ 30tb\.ai\.pro\.m 30tb.m
-http-response ^https://one\.google\.com/ai\?.*$ 20tb\.m\.v2 20tb.m
+http-response ^https://one\.google\.com/ai\?.*$ 30tb\.ai\.pro\.m 30tb.m 20tb\.m\.v2 20tb.m
 
 [MITM]
+enable = true
 hostname = %APPEND% one.google.com
